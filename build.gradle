@@ -1,11 +1,6 @@
-group = 'stelligent'
-version = '0.0.1-SNAPSHOT'
-
-
-
 buildscript {
     ext {
-        springBootVersion = '1.4.0.RELEASE'
+        springBootVersion = '2.0.0.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -18,22 +13,41 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'application'
-apply plugin: 'spring-boot'
+apply plugin: org.springframework.boot.gradle.plugin.SpringBootPlugin
+apply plugin: 'maven'
+mainClassName = 'org.springframework.samples.petclinic.PetClinicApplication'
+
+group = 'org.springframework.samples'
+
+description = """petclinic"""
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
 
 repositories {
-    mavenCentral()
+		mavenCentral()
+		maven { url "https://plugins.gradle.org/m2/" }
 }
-
-jar.archiveName "mu-rmc3-petclinic.jar"
-
 dependencies {
-    compile('org.springframework.boot:spring-boot-starter-actuator')
-    compile('org.springframework.boot:spring-boot-starter-web')
-    compile("org.springframework.boot:spring-boot-starter-hateoas")
-    compile('com.fasterxml.jackson.datatype:jackson-datatype-jsr310')
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version:'2.0.0.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version:'2.0.0.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version:'2.0.0.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version:'2.0.0.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version:'2.0.0.RELEASE'
+    compile group: 'javax.cache', name: 'cache-api', version:'1.1.0'
+    compile group: 'org.ehcache', name: 'ehcache', version:'3.5.0'
+    compile group: 'org.webjars', name: 'webjars-locator-core', version:'0.35'
+    compile group: 'org.webjars', name: 'jquery', version:'2.2.4'
+    compile group: 'org.webjars', name: 'jquery-ui', version:'1.11.4'
+    compile group: 'org.webjars', name: 'bootstrap', version:'3.3.6'
+		compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.2.3'
+		compile group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.2.11'
+		compile group: 'com.sun.xml.bind', name: 'jaxb-core', version: '2.2.11'
+    runtime group: 'org.hsqldb', name: 'hsqldb', version:'2.4.0'
+    runtime group: 'mysql', name: 'mysql-connector-java', version:'5.1.45'
+    runtime group: 'org.springframework.boot', name: 'spring-boot-devtools', version:'2.0.0.RELEASE'
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:'2.0.0.RELEASE'
 }
-
