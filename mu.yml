@@ -1,0 +1,21 @@
+environments:
+- name: acceptance
+- name: production
+service:
+  name: rmc3-petclinic
+  port: 8080
+  pathPatterns:
+  - /*
+  database:
+    name: petclinic
+    instanceClass: db.t2.small
+  environment:
+    SPRING_DATASOURCE_USERNAME: ${DatabaseMasterUsername}
+    SPRING_DATASOURCE_PASSWORD: ${DatabaseMasterPassword}
+    SPRING_DATASOURCE_URL: jdbc:mysql://${DatabaseEndpointAddress}:${DatabaseEndpointPort}/${DatabaseName}
+  pipeline:
+    source:
+      provider: GitHub
+      repo: rmc3/mu-spring-petclinic
+    build:
+      image: aws/codebuild/java:openjdk-8
