@@ -1,3 +1,4 @@
+namespace: rmc3
 environments:
 - name: acceptance
 - name: production
